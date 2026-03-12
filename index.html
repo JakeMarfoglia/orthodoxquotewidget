@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Church Fathers Quote</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: #faf7f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .widget {
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    padding: 32px 28px;
+  }
+
+  .cross {
+    font-size: 28px;
+    color: #8b1a1a;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+
+  .quote {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: #2c2420;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .quote::before { content: '\201C'; }
+  .quote::after { content: '\201D'; }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: #8b1a1a;
+    margin: 0 auto 16px;
+  }
+
+  .author {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #8b1a1a;
+    margin-bottom: 4px;
+  }
+
+  .source {
+    font-size: 0.85rem;
+    color: #7a6f66;
+    font-style: italic;
+  }
+
+  .refresh-btn {
+    margin-top: 24px;
+    background: none;
+    border: 1px solid #c9b99a;
+    color: #7a6f66;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.85rem;
+    padding: 6px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .refresh-btn:hover {
+    border-color: #8b1a1a;
+    color: #8b1a1a;
+  }
+</style>
+</head>
+<body>
+
+<div class="widget">
+  <div class="cross">☦</div>
+  <div class="quote" id="quote"></div>
+  <div class="divider"></div>
+  <div class="author" id="author"></div>
+  <div class="source" id="source"></div>
+  <button class="refresh-btn" onclick="showQuote()">Another quote</button>
+</div>
+
+<script>
+const quotes = [
+  {
+    text: "The glory of God is a human being fully alive, and the life of a human being is the vision of God.",
+    author: "St. Irenaeus of Lyon",
+    source: "Against Heresies"
+  },
+  {
+    text: "You cannot be too gentle, too kind. Shun even to appear harsh in your treatment of each other. Joy, radiant joy, streams from the face of him who gives and kindles joy in the heart of him who receives.",
+    author: "St. Seraphim of Sarov",
+    source: ""
+  },
+  {
+    text: "Acquire the Spirit of Peace and a thousand souls around you will be saved.",
+    author: "St. Seraphim of Sarov",
+    source: ""
+  },
+  {
+    text: "If you find that there is no love in you, but you want to have it, then do deeds of love, even though you do them without love in the beginning. The Lord will see your desire and your effort and will put love in your heart.",
+    author: "St. Ambrose of Optina",
+    source: ""
+  },
+  {
+    text: "Prayer is the place of refuge for every worry, a foundation for cheerfulness, a source of constant happiness, a protection against sadness.",
+    author: "St. John Chrysostom",
+    source: ""
+  },
+  {
+    text: "A tree is shown by its fruit, and in the same way those who profess to belong to Christ will be seen by what they do.",
+    author: "St. Ignatius of Antioch",
+    source: "Letter to the Ephesians"
+  },
+  {
+    text: "He became what we are that He might make us what He is.",
+    author: "St. Athanasius the Great",
+    source: "On the Incarnation"
+  },
+  {
+    text: "The soul is dyed the color of its thoughts. Think only on those things that are in line with your principles and can bear the light of day.",
+    author: "St. Basil the Great",
+    source: ""
+  },
+  {
+    text: "Do not say that you have a pure mind if your eyes are impure, for an impure eye is the messenger of an impure heart.",
+    author: "St. Isaac the Syrian",
+    source: "Ascetical Homilies"
+  },
+  {
+    text: "Every spiritual benefit comes from love and humility. All spiritual harm comes from pride and lack of love.",
+    author: "St. Paisios of Mount Athos",
+    source: ""
+  },
+  {
+    text: "The mind should be kept in the heart. You must descend from your head to your heart. At present your thoughts of God are in your head. And God Himself is, as it were, outside you.",
+    author: "St. Theophan the Recluse",
+    source: ""
+  },
+  {
+    text: "Man is most truly himself not when he strains and struggles to do something by himself, but when he is possessed by God.",
+    author: "St. Gregory of Nyssa",
+    source: ""
+  },
+  {
+    text: "The ladder of divine ascent has thirty steps. He who has reached the summit has not labored in vain.",
+    author: "St. John Climacus",
+    source: "The Ladder of Divine Ascent"
+  },
+  {
+    text: "If we truly love God, we shall feel an urge to pray. This comes not from any technique but from the heart.",
+    author: "St. Gregory Palamas",
+    source: ""
+  },
+  {
+    text: "Do not think that you will overwhelm the heretics with arguments, proofs, and signs. They are convinced of nothing except what flatters their own passions.",
+    author: "St. Mark the Ascetic",
+    source: ""
+  },
+  {
+    text: "The beginning of salvation is to condemn oneself.",
+    author: "St. Evagrius Ponticus",
+    source: ""
+  },
+  {
+    text: "Let us love silence until the world is made to die in our hearts.",
+    author: "St. Isaac the Syrian",
+    source: "Ascetical Homilies"
+  },
+  {
+    text: "We knew not whether we were in heaven or on earth, for surely there is no such splendor or beauty anywhere on earth.",
+    author: "Emissaries of St. Vladimir",
+    source: "Primary Chronicle, on Hagia Sophia"
+  },
+  {
+    text: "Be kind to all and severe with yourself.",
+    author: "St. Theresa (venerated in Orthodoxy)",
+    source: ""
+  },
+  {
+    text: "There is no greater sinner than one who, while praying, occupies himself with worldly thoughts.",
+    author: "St. Nilus of Sinai",
+    source: ""
+  }
+];
+
+let lastIndex = -1;
+
+function showQuote() {
+  let index;
+  do {
+    index = Math.floor(Math.random() * quotes.length);
+  } while (index === lastIndex && quotes.length > 1);
+  lastIndex = index;
+
+  const q = quotes[index];
+  document.getElementById('quote').textContent = q.text;
+  document.getElementById('author').textContent = '— ' + q.author;
+  document.getElementById('source').textContent = q.source;
+}
+
+showQuote();
+</script>
+
+</body>
+</html>
